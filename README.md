@@ -1,2 +1,2 @@
 # rust-lambda-graphql
-Simple implementation of Rust and GraphQL running on Lambda.
+Simple implementation of Rust and GraphQL (async_graphql) running on Lambda.
