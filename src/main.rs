@@ -10,12 +10,7 @@ mod schemas;
 
 async fn handler(event: Request) -> Result<Response<Body>, Error> {
     if event.method() == Method::GET {
-        return Response::builder()
-            .status(200)
-            .header("Content-Type", "text/html")
-            .body(Body::Text(GraphiQLSource::build().endpoint("/lambda-url/rust-lambda/").finish().to_string()))
-            .map_err(ServerError::from)
-            .map_err(Error::from)
+       return serve_graphiql_playground();
     }
 
     let query = match event.method() {
@@ -24,18 +19,27 @@ async fn handler(event: Request) -> Result<Response<Body>, Error> {
     };
 
     let query = match query {
-        Err(e) => {
-            return generate_error_response(StatusCode::BAD_REQUEST, handle_graphql_error(e));
+        Err(err) => {
+            return generate_error_response(StatusCode::BAD_REQUEST, handle_graphql_error(err));
         }
         Ok(query) => query,
     };
 
-    let response_body =
-        serde_json::to_string(&APP_SCHEMA.execute(query).await).map_err(ServerError::from)?;
+    let response_body = serde_json::to_string(&APP_SCHEMA.execute(query).await)
+        .map_err(ServerError::from)?;
         
     Response::builder()
-        .status(200)
+        .status(StatusCode::OK)
         .body(Body::Text(response_body))
+        .map_err(ServerError::from)
+        .map_err(Error::from)
+}
+
+fn serve_graphiql_playground() -> Result<Response<Body>, Error> {
+    Response::builder()
+        .status(StatusCode::OK)
+        .header("Content-Type", "text/html")
+        .body(Body::Text(GraphiQLSource::build().endpoint("/lambda-url/rust-lambda/").finish().to_string()))
         .map_err(ServerError::from)
         .map_err(Error::from)
 }
