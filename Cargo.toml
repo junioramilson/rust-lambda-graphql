@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 async-graphql = "6.0.4"
+cross = "0.2.5"
 futures-util = "0.3.28"
 http = "0.2.9"
 hyper = "0.14.27"
