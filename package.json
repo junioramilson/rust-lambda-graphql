@@ -1,0 +1,22 @@
+{
+  "name": "rust-lambda-graphql",
+  "version": "1.0.0",
+  "description": "Simple implementation of Rust and GraphQL (async_graphql) running on Lambda.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/junioramilson/rust-lambda-graphql.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/junioramilson/rust-lambda-graphql/issues"
+  },
+  "homepage": "https://github.com/junioramilson/rust-lambda-graphql#readme",
+  "dependencies": {
+    "serverless": "^3.36.0"
+  }
+}

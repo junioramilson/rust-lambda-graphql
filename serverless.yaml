@@ -1,0 +1,23 @@
+service: rust-lambda-graphql
+
+provider:
+  name: aws
+  runtime: provided.al2
+  region: sa-east-1
+
+package:
+  exclude:
+    - ./**
+  include:
+    - ./bootstrap
+
+functions:
+  graphql-server:
+    handler: bootstrap
+    events:
+      - http:
+          path: /graphql
+          method: get
+      - http:
+          path: /graphql
+          method: post

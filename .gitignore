@@ -1,1 +1,6 @@
 /target
+node_modules
+bootstrap
+.serverless
+.idea
+coverage
