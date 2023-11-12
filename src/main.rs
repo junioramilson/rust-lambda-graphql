@@ -9,6 +9,8 @@ mod errors;
 mod schemas;
 
 async fn handler(event: Request) -> Result<Response<Body>, Error> {
+    println!("Incoming request: {:?}", event);
+
     if event.method() == Method::GET {
        return serve_graphiql_playground();
     }
@@ -28,20 +30,20 @@ async fn handler(event: Request) -> Result<Response<Body>, Error> {
     let response_body = serde_json::to_string(&APP_SCHEMA.execute(query).await)
         .map_err(ServerError::from)?;
         
-    Response::builder()
+    Ok(Response::builder()
         .status(StatusCode::OK)
         .body(Body::Text(response_body))
         .map_err(ServerError::from)
-        .map_err(Error::from)
+        .map_err(Error::from)?)
 }
 
 fn serve_graphiql_playground() -> Result<Response<Body>, Error> {
-    Response::builder()
+    Ok(Response::builder()
         .status(StatusCode::OK)
         .header("Content-Type", "text/html")
         .body(Body::Text(GraphiQLSource::build().endpoint("/lambda-url/rust-lambda/").finish().to_string()))
         .map_err(ServerError::from)
-        .map_err(Error::from)
+        .map_err(Error::from)?)
 }
 
 fn handle_graphql_error(message: impl Display) -> String {
