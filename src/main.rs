@@ -73,6 +73,7 @@ fn graphql_handle_post(request: Request) -> Result<GraphQlRequest, ClientError> 
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
+    println!("Cold start running");
     tracing_subscriber::fmt()
         .with_max_level(tracing::Level::INFO)
         .with_target(false)
