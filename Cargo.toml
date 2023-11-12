@@ -9,7 +9,7 @@ cross = "0.2.5"
 futures-util = "0.3.28"
 http = "0.2.9"
 hyper = "0.14.27"
-lambda_http = { version = "0.8.1", default-features = false, features = ["apigw_http"] }
+lambda_http = { version = "0.8.1", default-features = false, features = ["apigw_rest"] }
 lambda_runtime = "0.8.1"
 lazy_static = "1.4.0"
 serde = "1.0.188"
