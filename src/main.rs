@@ -22,6 +22,7 @@ async fn handler(event: Request) -> Result<Response<Body>, Error> {
 
     let query = match query {
         Err(err) => {
+            println!("Error: {:?}", err);
             return generate_error_response(StatusCode::BAD_REQUEST, handle_graphql_error(err));
         }
         Ok(query) => query,
