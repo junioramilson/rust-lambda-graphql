@@ -22,7 +22,7 @@ jobs:
       - uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --target aarch64-unknown-linux-gnu.2.17
+          args: --release --arm64
       - run: |
           cp target/x86_64-unknown-linux-gnu/release/rust-lambda ./bootstrap
       - name: Install NPM dependencies
