@@ -16,15 +16,21 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: "18.x"
-      - uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-      - uses: actions-rs/cargo@v1
-        with:
-          command: build
-          args: --release --arm64
+        - name: Install Rust toolchain
+          uses: dtolnay/rust-toolchain@stable
+        - name: Install Zig toolchain
+          uses: korandoru/setup-zig@v1
+          with:
+            zig-version: 0.10.0
+        - name: Install Cargo Lambda
+          uses: jaxxstorm/action-install-gh-release@v1.9.0
+          with:
+            repo: cargo-lambda/cargo-lambda
+            platform: linux # Other valid options: 'windows' or 'darwin'
+            arch: x86_64 # Other valid options for linux: 'aarch64'
       - run: |
-          cp target/x86_64-unknown-linux-gnu/release/rust-lambda ./bootstrap
+          cargo lambda build --release --arm64
+          cp target/lambda/rust-lambda/bootstrap ./bootstrap
       - name: Install NPM dependencies
         run: npm install
       - name: Deploy Lambda function
