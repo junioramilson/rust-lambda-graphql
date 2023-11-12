@@ -76,7 +76,5 @@ async fn main() -> Result<(), Error> {
         .without_time()
         .init();
 
-    run(service_fn(handler)).await?;
-
-    Ok(())
+    run(service_fn(handler)).await
 }
