@@ -42,7 +42,7 @@ fn serve_graphiql_playground() -> Result<Response<Body>, Error> {
     Ok(Response::builder()
         .status(StatusCode::OK)
         .header("Content-Type", "text/html")
-        .body(Body::Text(GraphiQLSource::build().endpoint("/lambda-url/rust-lambda/").finish().to_string()))
+        .body(Body::Text(GraphiQLSource::build().endpoint("/prod/graphql").finish().to_string()))
         .map_err(ServerError::from)
         .map_err(Error::from)?)
 }
